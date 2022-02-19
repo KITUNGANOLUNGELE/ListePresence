@@ -38,7 +38,7 @@
 
             <form>
                 <div class="form-group" style="width: 50%; margin: auto">
-                    <label for="pwd">Séléctionnez une date : </label>
+                    <label for="pwd" style="color: white;">Séléctionnez une date : </label>
                     <select type="text" class="form-control" name="date" id="date">
                         <option value=""">option 1</option>
                     </select>
