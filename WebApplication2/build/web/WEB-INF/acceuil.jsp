@@ -16,7 +16,6 @@
         </style>
     </head>
     <body style="font-family: montserrat; background-color: aliceblue;">
-        <script>alert("bonjour")</script>
         <div class="container" style="text-align: center; background-color: rgba(128,0,0,.7); color:rgba(255,254,254,1); font-family: montserrat;width: 100%">
             <p><h1 style="font-family: montserrat;"><% Date dt = new Date();
                 DateFormat d = DateFormat.getDateInstance(DateFormat.LONG);
