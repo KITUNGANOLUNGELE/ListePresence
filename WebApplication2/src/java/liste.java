@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Henockl
  */
-public class acceuil extends HttpServlet {
+public class liste extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,10 +33,10 @@ public class acceuil extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet acceuil</title>");            
+            out.println("<title>Servlet liste</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet acceuil at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet liste at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,10 +54,9 @@ public class acceuil extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String message = "L2 Info(résau et conception)";
-         request.setAttribute("message", message);
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
+        String message = "Liste par date";
+        request.setAttribute("message", message);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/liste.jsp").forward(request, response);
     }
 
     /**
@@ -71,9 +70,7 @@ public class acceuil extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id_etudiant"), nom=request.getParameter("nom_etudiant"), postnom=request.getParameter("postnom_etudiant"), prenom=request.getParameter("prenom_etudiant");
-        PrintWriter r = response.getWriter();
-        r.println("vous avez entré :"+id +"\n"+nom+"\n"+ prenom + "\n"+ postnom);
+
     }
 
     /**

@@ -8,6 +8,10 @@
         <servlet-name>appel</servlet-name>
         <servlet-class>appel</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>liste</servlet-name>
+        <servlet-class>liste</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>acceuil</servlet-name>
         <url-pattern>/</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>appel</servlet-name>
         <url-pattern>/appel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>liste</servlet-name>
+        <url-pattern>/liste</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

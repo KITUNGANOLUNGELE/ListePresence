@@ -1,6 +1,6 @@
 <%-- 
-    Document   : appel.jsp
-    Created on : 18 févr. 2022, 08:48:51
+    Document   : liste
+    Created on : 19 févr. 2022, 17:22:50
     Author     : Henockl
 --%>
 
@@ -11,11 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Liste</title>
     </head>
-    <body>
-    <body style="font-family: montserrat; background-color: aliceblue;">
-        <div class="container" style="text-align: center; background-color: rgba(128,0,0,.7); color:rgba(255,254,254,1); font-family: montserrat;width: 100%">
+    <body>  <div class="container" style="text-align: center; background-color: rgba(128,0,0,.7); color:rgba(255,254,254,1); font-family: montserrat;width: 100%">
             <p><h1 style="font-family: montserrat;"><% Date dt = new Date();
                 DateFormat d = DateFormat.getDateInstance(DateFormat.LONG);
                 out.println("Date du jour : \n" + d.format(dt.getTime()));
@@ -33,11 +31,21 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="acceuil">Accueil</a></li>
-                    <li class="active"><a href="appel">Faire l'appel</a></li>
+                    <li class="active"><a href="acceuil">Accueil</a></li>
+                    <li><a href="appel">Faire l'appel</a></li>
                     <li><a href="liste">Liste de présence selon une date</a></li>
             </div>
-        </div>
-    </nav>
-</body>
-</html>
+
+            <form>
+                <div class="form-group" style="width: 50%; margin: auto">
+                    <label for="pwd">Séléctionnez une date : </label>
+                    <select type="text" class="form-control" name="date" id="date">
+                        <option value=""">option 1</option>
+                    </select>
+                    <div style="margin: 10px auto 10px auto">
+                        <div class="form-group" style="width: 50%; margin: auto">
+                            <input class="btn-sm btn-success" type="submit"  name="Rechercher" id="Rechercher" value="Rechercher">
+                        </div>
+                        </form><</nav>
+                        </body>
+                        </html>
