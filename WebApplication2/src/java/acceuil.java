@@ -74,7 +74,6 @@ public class acceuil extends HttpServlet {
         String nom = request.getParameter("id_etudiant");
         PrintWriter r = response.getWriter();
         r.println(nom);
-        request.setAttribute("message", nom);
     }
 
     /**
