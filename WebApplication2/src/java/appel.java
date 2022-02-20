@@ -9,6 +9,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Classes_et_BD.*;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +40,7 @@ public class appel extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet appel</title>");            
+            out.println("<title>Servlet appel</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet appel at " + request.getContextPath() + "</h1>");
@@ -56,6 +63,22 @@ public class appel extends HttpServlet {
             throws ServletException, IOException {
         String message = "Faites votre appel ici";
         request.setAttribute("message", message);
+        DB base = new DB();
+        base.connection();
+        String query = "select * from etudiant";
+        String m = "";
+        try {
+            Statement stat = base.con.createStatement();
+            //PreparedStatement prep = base.con.prepareStatement(query);
+            ResultSet r = stat.executeQuery(query);
+            while (r.next()) {
+                m = m + r.getString("id_etudiant") + " \n";
+                request.setAttribute("message", m);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.getServletContext().getRequestDispatcher("/WEB-INF/appel.jsp").forward(request, response);
     }
 
