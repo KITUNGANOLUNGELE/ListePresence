@@ -14,25 +14,33 @@ import java.sql.SQLException;
 public class Etudiant {
     public String id_etudiant,nom_etudiant,postnom_etudiant,prenom_etudiant;
     
-    public void enregistrer(String stat) throws SQLException
+    public Etudiant(String id,String nom,String postnom,String prenom)
     {
-        DB base = new DB();
-        base.connection();
-        Statement req = base.con.createStatement();
-        req.executeUpdate(stat);
+        this.id_etudiant = id;
+        this.nom_etudiant = nom;
+        this.postnom_etudiant = postnom;
+        this.prenom_etudiant = prenom;
     }
-    public void mettreAjour(String stat, String param) throws SQLException
+    
+    public void enregistrer(Etudiant et) throws SQLException
     {
         DB base = new DB();
         base.connection();
         Statement req = base.con.createStatement();
-        req.executeUpdate(stat);
+        req.executeUpdate("insert into etudiant values ('"+et.id_etudiant+"','"+et.nom_etudiant+"','"+et.postnom_etudiant+"','"+et.prenom_etudiant+"')");
     }
-    public void supprimer(String stat, String param) throws SQLException
+    public void mettreAjour(Etudiant et) throws SQLException
+    {
+          DB base = new DB();
+        base.connection();
+        Statement req = base.con.createStatement();
+        req.executeUpdate("update etudiant set nom_etudiant='"+et.nom_etudiant+"',postnom_etudiant='"+et.postnom_etudiant+"',prenom_etudiant='"+et.prenom_etudiant+"' where id_etudiant='"+et.id_etudiant+"'");
+    }
+    public void supprimer(Etudiant et) throws SQLException
     {
         DB base = new DB();
         base.connection();
         Statement req = base.con.createStatement();
-        req.executeUpdate(stat);
+        req.execute("delete * from etudiant where id_etudiant='"+et.id_etudiant+"'");
     }
 }

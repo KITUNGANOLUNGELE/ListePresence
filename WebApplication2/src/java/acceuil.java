@@ -9,6 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Classes_et_BD.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,18 +32,6 @@ public class acceuil extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet acceuil</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet acceuil at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -55,8 +47,8 @@ public class acceuil extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String message = "L2 Info(résau et conception)";
-         request.setAttribute("message", message);
-        
+        request.setAttribute("message", message);
+
         this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
     }
 
@@ -71,9 +63,52 @@ public class acceuil extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id_etudiant"), nom=request.getParameter("nom_etudiant"), postnom=request.getParameter("postnom_etudiant"), prenom=request.getParameter("prenom_etudiant");
-        PrintWriter r = response.getWriter();
-        r.println("vous avez entré :"+id +"\n"+nom+"\n"+ prenom + "\n"+ postnom);
+        if (request.getParameter("Enregistrer") != "" && request.getParameter("id_etudiant") != "") {
+            String id = request.getParameter("id_etudiant");
+            String nom = request.getParameter("nom_etudiant");
+            String postnom = request.getParameter("postnom_etudiant");
+            String prenom = request.getParameter("prenom_etudiant");
+            Etudiant et = new Etudiant(id, nom, postnom, prenom);
+            try {
+                et.enregistrer(et);
+                String sqlresponse = "<div class=\" alert-success\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">enregistré(e) avec succès</div>";
+                request.setAttribute("sqlresponse", sqlresponse);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(acceuil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (request.getParameter("Modifier") != "" && request.getParameter("id_etudiant") != "") {
+            String id = request.getParameter("id_etudiant");
+            String nom = request.getParameter("nom_etudiant");
+            String postnom = request.getParameter("postnom_etudiant");
+            String prenom = request.getParameter("prenom_etudiant");
+            Etudiant et = new Etudiant(id, nom, postnom, prenom);
+            try {
+                et.mettreAjour(et);
+                String sqlresponse = "<div class=\" alert-succes\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">Modifié(e) avec succès</div>";
+                request.setAttribute("sqlresponse", sqlresponse);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(acceuil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //suppresion
+        if (request.getParameter("Supprimer_etudiant") != "" && request.getParameter("id_etudiant") != "") {
+            String id = request.getParameter("id_etudiant");
+            String nom = request.getParameter("nom_etudiant");
+            String postnom = request.getParameter("postnom_etudiant");
+            String prenom = request.getParameter("prenom_etudiant");
+            Etudiant et = new Etudiant(id, nom, postnom, prenom);
+            try {
+                et.supprimer(et);
+                String sqlresponse = "<div class=\" alert-danger\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">Supprimé(e) avec succès</div>";
+                request.setAttribute("sqlresponse", sqlresponse);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(acceuil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**

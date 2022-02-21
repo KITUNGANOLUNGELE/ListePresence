@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Classes_et_BD;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
@@ -13,32 +14,39 @@ import java.text.DateFormat;
  * @author Henockl
  */
 public class Presence {
+
     public int id_presence;
     Date date = new Date();
     DateFormat d = DateFormat.getDateInstance(DateFormat.LONG);
     public String status_presence, id_etudiant;
     public String Mydate = d.format(date.getTime());
-    
-       
-    public void enregistrer(String stat) throws SQLException
+    //constructeur
+    public Presence(int id,String date,String status,String id_etudiant)
     {
-        DB base = new DB();
-        base.connection();
-        Statement req = base.con.createStatement();
-        req.executeUpdate(stat);
+        this.id_presence = id;
+        this.Mydate = date;
+        this.status_presence = status;
+        this.id_etudiant = id_etudiant;
     }
-    public void mettreAjour(String stat, String param) throws SQLException
-    {
+
+    public void enregistrer(Presence et) throws SQLException {
         DB base = new DB();
         base.connection();
         Statement req = base.con.createStatement();
-        req.executeUpdate(stat);
+        req.executeUpdate("insert into presence(date_presence,status_presence,id_etudiant) values ('" + et.Mydate + "','" + et.status_presence + "','" + et.id_etudiant + "')");
     }
-    public void supprimer(String stat, String param) throws SQLException
-    {
+
+    public void mettreAjour(Presence et) throws SQLException {
         DB base = new DB();
         base.connection();
         Statement req = base.con.createStatement();
-        req.executeUpdate(stat);
+        req.executeUpdate("update etudiant set date_presence='" + et.Mydate + "',status_presence='" + et.status_presence + "',id_etudiant='" + et.id_etudiant + "' where id_presence=" + et.id_presence + "");
+    }
+
+    public void supprimer(Presence et) throws SQLException {
+        DB base = new DB();
+        base.connection();
+        Statement req = base.con.createStatement();
+        req.executeUpdate("delete from presence where id_presence=" + et.id_presence + "");
     }
 }
