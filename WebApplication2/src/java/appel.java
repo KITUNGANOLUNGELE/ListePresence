@@ -19,12 +19,18 @@ import java.util.logging.Logger;
 import Classes_et_BD.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.text.DateFormat;
 
 /**
  *
  * @author Henockl
  */
 public class appel extends HttpServlet {
+
+    Date date = new Date();
+    DateFormat d = DateFormat.getDateInstance(DateFormat.LONG);
+    String mydate = d.format(date.getTime());
 
     Collection<Etudiant> mes_etudiants = new ArrayList<>();
 
@@ -60,17 +66,15 @@ public class appel extends HttpServlet {
         String message = "Faites votre appel ici";
         request.setAttribute("message", message);
         DB base = new DB();
-        Etudiant et;
         base.connection();
-        String query = "select * from etudiant";
-        String m = "";
+        String query = "select * from etudiant where date_presence is NULL or date_presence <> '" + mydate + "'";
         try {
             Statement stat = base.con.createStatement();
-            //PreparedStatement prep = base.con.prepareStatement(query);
-            ResultSet r = stat.executeQuery(query);
+            PreparedStatement prep = base.con.prepareStatement(query);
+            ResultSet r = prep.executeQuery(query);
             mes_etudiants.clear();
             while (r.next()) {
-                et = new Etudiant(r.getString("id_etudiant"), r.getString("nom_etudiant"), r.getString("postnom_etudiant"), r.getNString("prenom_etudiant"));
+                Etudiant et = new Etudiant(r.getString("id_etudiant"), r.getString("nom_etudiant"), r.getString("postnom_etudiant"), r.getString("prenom_etudiant"));
                 mes_etudiants.add(et);
             }
             request.setAttribute("mes_etudiants", mes_etudiants);
@@ -92,7 +96,93 @@ public class appel extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        if (request.getParameter("present") != null) {
+            //update etudiant
+            DB db = new DB();
+            db.connection();
+            try {
+                Statement req = db.con.createStatement();
+                req.executeUpdate("update etudiant set date_presence = '"+mydate+"' where id_etudiant = '"+request.getParameter("id")+"'");
+            } catch (SQLException ex) {
+                Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //enregistrement de la presence
+             try {
+                Statement req1 = db.con.createStatement();
+                req1.executeUpdate("INSERT INTO `presence`(`date_presence`, `satus_presence`, `id_etudiant`) VALUES ('"+mydate+"','Present','"+request.getParameter("id")+"')");
+            } catch (SQLException ex) {
+                Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //affichage des etudiants
+            
+             String message = "Faites votre appel ici";
+        request.setAttribute("message", message);
+        DB base = new DB();
+        base.connection();
+        String query = "select * from etudiant where date_presence is NULL or date_presence <> '" + mydate + "'";
+        try {
+            Statement stat = base.con.createStatement();
+            PreparedStatement prep = base.con.prepareStatement(query);
+            ResultSet r = prep.executeQuery(query);
+            mes_etudiants.clear();
+            while (r.next()) {
+                Etudiant et = new Etudiant(r.getString("id_etudiant"), r.getString("nom_etudiant"), r.getString("postnom_etudiant"), r.getString("prenom_etudiant"));
+                mes_etudiants.add(et);
+            }
+            request.setAttribute("mes_etudiants", mes_etudiants);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.getServletContext().getRequestDispatcher("/WEB-INF/appel.jsp").forward(request, response);
+
+            
+        }
+        //absence
+          if (request.getParameter("absent") != null) {
+            //update etudiant
+            DB db = new DB();
+            db.connection();
+            try {
+                Statement req = db.con.createStatement();
+                req.executeUpdate("update etudiant set date_presence = '"+mydate+"' where id_etudiant = '"+request.getParameter("id")+"'");
+            } catch (SQLException ex) {
+                Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //enregistrement de la presence
+            try {
+                Statement req2 = db.con.createStatement();
+                req2.executeUpdate("INSERT INTO `presence`(`date_presence`, `satus_presence`, `id_etudiant`) VALUES ('"+mydate+"','Absent','"+request.getParameter("id")+"')");
+            } catch (SQLException ex) {
+                Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+            //affichage des etudiants
+            
+             String message = "Faites votre appel ici";
+        request.setAttribute("message", message);
+        DB base = new DB();
+        base.connection();
+        String query = "select * from etudiant where date_presence is NULL or date_presence <> '" + mydate + "'";
+        try {
+            Statement stat = base.con.createStatement();
+            PreparedStatement prep = base.con.prepareStatement(query);
+            ResultSet r = prep.executeQuery(query);
+            mes_etudiants.clear();
+            while (r.next()) {
+                Etudiant et = new Etudiant(r.getString("id_etudiant"), r.getString("nom_etudiant"), r.getString("postnom_etudiant"), r.getString("prenom_etudiant"));
+                mes_etudiants.add(et);
+            }
+            request.setAttribute("mes_etudiants", mes_etudiants);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.getServletContext().getRequestDispatcher("/WEB-INF/appel.jsp").forward(request, response);
+
+            
+        }
     }
 
     /**

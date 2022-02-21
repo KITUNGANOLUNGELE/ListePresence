@@ -16,10 +16,8 @@ import java.text.DateFormat;
 public class Presence {
 
     public int id_presence;
-    Date date = new Date();
-    DateFormat d = DateFormat.getDateInstance(DateFormat.LONG);
     public String status_presence, id_etudiant;
-    public String Mydate = d.format(date.getTime());
+    public String Mydate;
     //constructeur
     public Presence(int id,String date,String status,String id_etudiant)
     {

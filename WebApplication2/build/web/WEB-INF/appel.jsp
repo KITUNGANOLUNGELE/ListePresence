@@ -40,22 +40,47 @@
             </div>
         </div>
     </nav>
-    <table calss="table table-dark">
-        <thead class=" thead-light">
-            <tr>
+    <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
+        <c:set var="inc" value="0" scope="page"/> 
+        <thead style="text-align: center;">
+            <tr class=" info">
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Postnom</th>
                 <th>Prenom</th>
+                <th>Status</th>
             </tr>
 
         </thead>
-        <tbody>
-            <c:forEach var="i" begin="1" end="${mes_etudants}">
-                <c:out value="i"/>
-            </c:forEach>
-        </tbody>
+        <tbody style="text-align: left;">
+            <c:forEach items="${mes_etudiants}" var="Etudiant">
+                <tr>
+            <form method="POST" action="appel">
+                <td>
+                    <input name="id" value='<c:out value="${Etudiant.id_etudiant}"/>' readonly="true"/>
+                </td>
+                <td>
+                    <c:out value="${Etudiant.nom_etudiant}"/>
+                </td>
+                <td>
+                    <c:out value="${Etudiant.postnom_etudiant}"/>
+                <td>
+                    <c:out value="${Etudiant.prenom_etudiant}"/>
+                </td>
+                <td>
+                    <div style="width: 70%; background-color: rgba(0,0,0,.4)">
+                        <i class="glyphicon-pencil"></i><input class="btn-success" type="submit" name="present" value="Présent">
+                        <i class="glyphicon-pencil"></i><input class="btn-danger" type="submit" name="absent" value="Absent">
+                    </div>
+                    
+                    
+                </td>
+            </form>
 
-    </table>
-    ${mes_etudiants}
+        </tr>
+    </c:forEach>
+</tbody>
+
+</table>
 </body>
 </html>

@@ -22,6 +22,22 @@ public class Etudiant {
         this.postnom_etudiant = postnom;
         this.prenom_etudiant = prenom;
     }
+    public String getId_etudiant()
+    {
+        return this.id_etudiant;
+    }
+     public String getNom_etudiant()
+    {
+        return this.nom_etudiant;
+    }
+      public String getPostnom_etudiant()
+    {
+        return this.postnom_etudiant;
+    }
+       public String getPrenom_etudiant()
+    {
+        return this.prenom_etudiant;
+    }
 
     public void enregistrer(Etudiant et) throws SQLException {
         DB base = new DB();
