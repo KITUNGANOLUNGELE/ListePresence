@@ -16,12 +16,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Classes_et_BD.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
  * @author Henockl
  */
 public class appel extends HttpServlet {
+       Collection<Etudiant> mes_etudiants = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,16 +40,7 @@ public class appel extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet appel</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet appel at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+           
         }
     }
 
@@ -64,6 +59,7 @@ public class appel extends HttpServlet {
         String message = "Faites votre appel ici";
         request.setAttribute("message", message);
         DB base = new DB();
+        Etudiant et;
         base.connection();
         String query = "select * from etudiant";
         String m = "";
@@ -72,9 +68,10 @@ public class appel extends HttpServlet {
             //PreparedStatement prep = base.con.prepareStatement(query);
             ResultSet r = stat.executeQuery(query);
             while (r.next()) {
-                m = m + r.getString("id_etudiant") + " \n";
-                request.setAttribute("message", m);
+                et = new Etudiant(r.getString("id_etudiant"), r.getString("nom_etudiant"), r.getString("postnom_etudiant"), r.getNString("prenom_etudiant"));
+                mes_etudiants.add(et);
             }
+            request.setAttribute("mes_etudiants", mes_etudiants);
 
         } catch (SQLException ex) {
             Logger.getLogger(appel.class.getName()).log(Level.SEVERE, null, ex);

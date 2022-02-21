@@ -39,5 +39,6 @@
             </div>
         </div>
     </nav>
+    ${mes_etudiants}
 </body>
 </html>
