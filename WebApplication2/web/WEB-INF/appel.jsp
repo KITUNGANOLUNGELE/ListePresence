@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Date, java.text.DateFormat" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,6 +40,22 @@
             </div>
         </div>
     </nav>
+    <table calss="table table-dark">
+        <thead class=" thead-light">
+            <tr>
+                <th>Nom</th>
+                <th>Postnom</th>
+                <th>Prenom</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <c:forEach var="i" begin="1" end="${mes_etudants}">
+                <c:out value="i"/>
+            </c:forEach>
+        </tbody>
+
+    </table>
     ${mes_etudiants}
 </body>
 </html>
