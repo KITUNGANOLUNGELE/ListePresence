@@ -25,7 +25,8 @@ import java.util.Collection;
  * @author Henockl
  */
 public class appel extends HttpServlet {
-       Collection<Etudiant> mes_etudiants = new ArrayList<>();
+
+    Collection<Etudiant> mes_etudiants = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +41,7 @@ public class appel extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-           
+
         }
     }
 
@@ -67,6 +68,7 @@ public class appel extends HttpServlet {
             Statement stat = base.con.createStatement();
             //PreparedStatement prep = base.con.prepareStatement(query);
             ResultSet r = stat.executeQuery(query);
+            mes_etudiants.clear();
             while (r.next()) {
                 et = new Etudiant(r.getString("id_etudiant"), r.getString("nom_etudiant"), r.getString("postnom_etudiant"), r.getNString("prenom_etudiant"));
                 mes_etudiants.add(et);
