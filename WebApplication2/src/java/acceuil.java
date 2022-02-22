@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  * @author Henockl
  */
 public class acceuil extends HttpServlet {
+    String sqlresponse;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,7 +64,7 @@ public class acceuil extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("Enregistrer") != "" && request.getParameter("id_etudiant") != "") {
+        if (request.getParameter("Enregistrer") != null && request.getParameter("id_etudiant") != "") {
             String id = request.getParameter("id_etudiant");
             String nom = request.getParameter("nom_etudiant");
             String postnom = request.getParameter("postnom_etudiant");
@@ -71,14 +72,12 @@ public class acceuil extends HttpServlet {
             Etudiant et = new Etudiant(id, nom, postnom, prenom);
             try {
                 et.enregistrer(et);
-                String sqlresponse = "<div class=\" alert-success\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">enregistré(e) avec succès</div>";
-                request.setAttribute("sqlresponse", sqlresponse);
-                this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
+                 sqlresponse = "<div class=\" alert-success\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">succès</div>";
             } catch (SQLException ex) {
                 Logger.getLogger(acceuil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (request.getParameter("Modifier") != "" && request.getParameter("id_etudiant") != "") {
+        if (request.getParameter("Modifier") != null && request.getParameter("id_etudiant") != "") {
             String id = request.getParameter("id_etudiant");
             String nom = request.getParameter("nom_etudiant");
             String postnom = request.getParameter("postnom_etudiant");
@@ -86,29 +85,15 @@ public class acceuil extends HttpServlet {
             Etudiant et = new Etudiant(id, nom, postnom, prenom);
             try {
                 et.mettreAjour(et);
-                String sqlresponse = "<div class=\" alert-succes\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">Modifié(e) avec succès</div>";
-                request.setAttribute("sqlresponse", sqlresponse);
-                this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
+                sqlresponse = "<div class=\" alert-succes\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\"> succès</div>";
             } catch (SQLException ex) {
                 Logger.getLogger(acceuil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //suppresion
-        if (request.getParameter("Supprimer_etudiant") != "" && request.getParameter("id_etudiant") != "") {
-            String id = request.getParameter("id_etudiant");
-            String nom = request.getParameter("nom_etudiant");
-            String postnom = request.getParameter("postnom_etudiant");
-            String prenom = request.getParameter("prenom_etudiant");
-            Etudiant et = new Etudiant(id, nom, postnom, prenom);
-            try {
-                et.supprimer(et);
-                String sqlresponse = "<div class=\" alert-danger\" style=\"text-align: center; width: 60%; margin: auto; font-size: 150%; font-weight: bold;\">Supprimé(e) avec succès</div>";
-                request.setAttribute("sqlresponse", sqlresponse);
-                this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(acceuil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+         String message = "L2 Info(résau et conception)";
+        request.setAttribute("message", message);
+         request.setAttribute("sqlresponse", sqlresponse);
+         this.getServletContext().getRequestDispatcher("/WEB-INF/acceuil.jsp").forward(request, response);
     }
 
     /**

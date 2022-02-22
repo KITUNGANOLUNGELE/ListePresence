@@ -97,13 +97,13 @@ public class liste extends HttpServlet {
             String query = "select * from etudiant inner join presence on etudiant.id_etudiant=presence.id_etudiant where satus_presence='present' and presence.date_presence='" + dateUTF8 + "'";
             String query1 = "select * from etudiant inner join presence on etudiant.id_etudiant=presence.id_etudiant where satus_presence='absent' and presence.date_presence='" + dateUTF8 + "'";
             try {
+                int i = 0;
                 PreparedStatement p = data.con.prepareStatement(query);
                 ResultSet r = p.executeQuery();
                 while (r.next()) {
-                    int i = 1;
+                    i++;
                     String nom = String.valueOf(i) + ". " + r.getString("nom_etudiant") + " " + r.getString("postnom_etudiant") + " " + r.getString("prenom_etudiant");
                     liste_present.add(nom);
-                    i++;
                 }
 
             } catch (SQLException ex) {
@@ -111,14 +111,14 @@ public class liste extends HttpServlet {
             }
 
             try {
+                int i = 0;
                 //absent
                 PreparedStatement p1 = data.con.prepareStatement(query1);
                 ResultSet r1 = p1.executeQuery();
                 while (r1.next()) {
-                    int i = 1;
+                    i++;
                     String nom = String.valueOf(i) + ". " + r1.getNString("nom_etudiant") + " " + r1.getString("postnom_etudiant") + " " + r1.getString("prenom_etudiant");
                     liste_absent.add(nom);
-                    i++;
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(liste.class.getName()).log(Level.SEVERE, null, ex);

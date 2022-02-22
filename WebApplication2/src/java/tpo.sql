@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 21 fév. 2022 à 09:04
+-- Généré le : mar. 22 fév. 2022 à 05:41
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.0.15
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `tp`
+-- Base de données : `tpo`
 --
 
 -- --------------------------------------------------------
@@ -31,15 +31,21 @@ CREATE TABLE `etudiant` (
   `id_etudiant` varchar(6) NOT NULL,
   `nom_etudiant` varchar(20) NOT NULL,
   `postnom_etudiant` varchar(20) NOT NULL,
-  `prenom_etudiant` varchar(20) NOT NULL
+  `prenom_etudiant` varchar(20) NOT NULL,
+  `date_presence` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`id_etudiant`, `nom_etudiant`, `postnom_etudiant`, `prenom_etudiant`) VALUES
-('ET0001', 'BAMBA', 'CHRISTELLE', 'Olivia');
+INSERT INTO `etudiant` (`id_etudiant`, `nom_etudiant`, `postnom_etudiant`, `prenom_etudiant`, `date_presence`) VALUES
+('1', 'KITUNGANO', 'LUNGELE', 'Henock', '21 février 2022'),
+('2', 'TUYISHIME', 'Isaac', 'Isaac', '21 février 2022'),
+('3', 'KATEMBO', 'KIKANAVYA', 'EMMANUEL', '21 février 2022'),
+('4', 'MULEY', 'LUBWENDE', 'Glody', '21 février 2022'),
+('5', 'KYAKIMWA', 'VIKASIMBAKI', 'Neema', '21 février 2022'),
+('6', 'BAMBA', 'CHRISTELLE', 'Olivia', NULL);
 
 -- --------------------------------------------------------
 
@@ -53,6 +59,17 @@ CREATE TABLE `presence` (
   `satus_presence` varchar(20) NOT NULL,
   `id_etudiant` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `presence`
+--
+
+INSERT INTO `presence` (`id_presence`, `date_presence`, `satus_presence`, `id_etudiant`) VALUES
+(2, '21 févriver 2022', 'present', '1'),
+(3, '21 févriver 2022', 'present', '2'),
+(4, '21 févriver 2022', 'present', '3'),
+(5, '21 févriver 2022', 'present', '4'),
+(6, '21 févriver 2022', 'present', '5');
 
 --
 -- Index pour les tables déchargées
@@ -79,7 +96,7 @@ ALTER TABLE `presence`
 -- AUTO_INCREMENT pour la table `presence`
 --
 ALTER TABLE `presence`
-  MODIFY `id_presence` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_presence` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Contraintes pour les tables déchargées

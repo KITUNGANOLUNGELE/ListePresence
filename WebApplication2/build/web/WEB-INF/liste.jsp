@@ -50,16 +50,16 @@
                 </div>
         </div>
     </nav>
-    <div style="width: 90%; margin: auto">
+    <div style="width: 90%; margin: auto;">
         <div class="alert-info" style="width: 40%; float: left; margin: 40px 0px 0px 40px; border-radius: 6px;">
             <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
                 <thead style="text-align: center;">
                     <tr class=" info">
-                        <th style="text-align: center;">Liste des étudiants présents</th>
+                        <th style="text-align: center; font-family: monserrat; font-weight: bold; font-size: 90%"><h3>Liste des étudiants présents</h3></th>
                     </tr>
 
                 </thead>
-                <tbody style="text-align: center;">
+                <tbody style="text-align: left; font-family: montserrat;font-weight: bold;">
                     <c:forEach items="${liste_present}" var="present">
                         <tr>
                             <td >
@@ -74,11 +74,11 @@
             <table class="table" style="width: 70%; margin: auto; text-align: center;">
                 <thead style="text-align: center;">
                     <tr class=" info">
-                        <th style="text-align: center;">Liste des étudiants absents</th>
+                        <th style="text-align: center; font-family: monserrat; font-weight: bold; font-size: 90%"><h3>Liste des étudiants absents</h3></th>
                     </tr>
 
                 </thead>
-                <tbody style="text-align: center;">
+                <tbody style="text-align: left; font-family: montserrat;font-weight: bold;">
                     <c:forEach items="${liste_absent}" var="absent">
                         <tr>
                             <td>

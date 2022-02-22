@@ -7,6 +7,7 @@ package Classes_et_BD;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -41,9 +42,11 @@ public class Etudiant {
 
     public void enregistrer(Etudiant et) throws SQLException {
         DB base = new DB();
+        String re = "insert into etudiant(id_etudiant, nom_etudiant, postnom_etudiant, prenom_etudiant) values ('" + et.id_etudiant + "','" + et.nom_etudiant + "','" + et.postnom_etudiant + "','" + et.prenom_etudiant + "')";
         base.connection();
-        Statement req = base.con.createStatement();
-        req.executeUpdate("insert into etudiant values ('" + et.id_etudiant + "','" + et.nom_etudiant + "','" + et.postnom_etudiant + "','" + et.prenom_etudiant + "')");
+        Statement req;
+        req = base.con.createStatement();
+        req.executeUpdate(re);
     }
 
     public void mettreAjour(Etudiant et) throws SQLException {
