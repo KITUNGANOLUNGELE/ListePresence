@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 22 fév. 2022 à 05:41
+-- Généré le : mar. 22 fév. 2022 à 08:48
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.0.15
 
@@ -45,7 +45,7 @@ INSERT INTO `etudiant` (`id_etudiant`, `nom_etudiant`, `postnom_etudiant`, `pren
 ('3', 'KATEMBO', 'KIKANAVYA', 'EMMANUEL', '21 février 2022'),
 ('4', 'MULEY', 'LUBWENDE', 'Glody', '21 février 2022'),
 ('5', 'KYAKIMWA', 'VIKASIMBAKI', 'Neema', '21 février 2022'),
-('6', 'BAMBA', 'CHRISTELLE', 'Olivia', NULL);
+('6', 'BAMBA', 'CHRISTELLE', 'Olivia', '21 février 2022');
 
 -- --------------------------------------------------------
 
@@ -65,11 +65,12 @@ CREATE TABLE `presence` (
 --
 
 INSERT INTO `presence` (`id_presence`, `date_presence`, `satus_presence`, `id_etudiant`) VALUES
-(2, '21 févriver 2022', 'present', '1'),
-(3, '21 févriver 2022', 'present', '2'),
-(4, '21 févriver 2022', 'present', '3'),
-(5, '21 févriver 2022', 'present', '4'),
-(6, '21 févriver 2022', 'present', '5');
+(2, '21 février 2022', 'Present', '1'),
+(3, '21 février 2022', 'Present', '2'),
+(4, '21 février 2022', 'Present', '3'),
+(5, '21 février 2022', 'Present', '4'),
+(6, '21 février 2022', 'Present', '5'),
+(9, '21 février 2022', 'Absent', '6');
 
 --
 -- Index pour les tables déchargées
@@ -96,7 +97,7 @@ ALTER TABLE `presence`
 -- AUTO_INCREMENT pour la table `presence`
 --
 ALTER TABLE `presence`
-  MODIFY `id_presence` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_presence` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Contraintes pour les tables déchargées
