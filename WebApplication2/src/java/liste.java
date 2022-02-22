@@ -9,12 +9,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import Classes_et_BD.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Henockl
  */
 public class liste extends HttpServlet {
+
+    Collection<String> liste_date = new ArrayList<>();
+    Collection<String> liste_absent = new ArrayList<>();
+    Collection<String> liste_present = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,16 +42,6 @@ public class liste extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet liste</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet liste at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -56,6 +59,20 @@ public class liste extends HttpServlet {
             throws ServletException, IOException {
         String message = "Liste par date";
         request.setAttribute("message", message);
+        DB bd = new DB();
+        bd.connection();
+        String query = "select * from presence GROUP by date_presence";
+        try {
+            liste_date.clear();
+            PreparedStatement p = bd.con.prepareStatement(query);
+            ResultSet res = p.executeQuery();
+            while (res.next()) {
+                liste_date.add(res.getString("date_presence"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(liste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("liste_date", liste_date);
         this.getServletContext().getRequestDispatcher("/WEB-INF/liste.jsp").forward(request, response);
     }
 
@@ -70,7 +87,64 @@ public class liste extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (request.getParameter("rechercher") != null) {
+            liste_present.clear();
+            liste_absent.clear();
+            String date = (String) request.getParameter("date");
+            String dateUTF8 = new String(date.getBytes(), "UTF-8");
+            DB data = new DB();
+            data.connection();
+            String query = "select * from etudiant inner join presence on etudiant.id_etudiant=presence.id_etudiant where satus_presence='present' and presence.date_presence='" + dateUTF8 + "'";
+            String query1 = "select * from etudiant inner join presence on etudiant.id_etudiant=presence.id_etudiant where satus_presence='absent' and presence.date_presence='" + dateUTF8 + "'";
+            try {
+                PreparedStatement p = data.con.prepareStatement(query);
+                ResultSet r = p.executeQuery();
+                while (r.next()) {
+                    int i = 1;
+                    String nom = String.valueOf(i) + ". " + r.getString("nom_etudiant") + " " + r.getString("postnom_etudiant") + " " + r.getString("prenom_etudiant");
+                    liste_present.add(nom);
+                    i++;
+                }
 
+            } catch (SQLException ex) {
+                Logger.getLogger(liste.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                //absent
+                PreparedStatement p1 = data.con.prepareStatement(query1);
+                ResultSet r1 = p1.executeQuery();
+                while (r1.next()) {
+                    int i = 1;
+                    String nom = String.valueOf(i) + ". " + r1.getNString("nom_etudiant") + " " + r1.getString("postnom_etudiant") + " " + r1.getString("prenom_etudiant");
+                    liste_absent.add(nom);
+                    i++;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(liste.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        //rechargement du select
+        String message = "Liste par date";
+        request.setAttribute("message", message);
+        DB bd = new DB();
+        bd.connection();
+        String query = "select * from presence GROUP by date_presence";
+        try {
+            liste_date.clear();
+            PreparedStatement p = bd.con.prepareStatement(query);
+            ResultSet res = p.executeQuery();
+            while (res.next()) {
+                liste_date.add(res.getString("date_presence"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(liste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("liste_date", liste_date);
+        request.setAttribute("liste_present", liste_present);
+        request.setAttribute("liste_absent", liste_absent);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/liste.jsp").forward(request, response);
     }
 
     /**
