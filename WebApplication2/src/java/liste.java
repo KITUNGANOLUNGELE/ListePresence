@@ -28,6 +28,7 @@ public class liste extends HttpServlet {
     Collection<String> liste_date = new ArrayList<>();
     Collection<String> liste_absent = new ArrayList<>();
     Collection<String> liste_present = new ArrayList<>();
+    String dateUTF8;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -91,7 +92,7 @@ public class liste extends HttpServlet {
             liste_present.clear();
             liste_absent.clear();
             String date = (String) request.getParameter("date");
-            String dateUTF8 = new String(date.getBytes(), "UTF-8");
+            dateUTF8 = new String(date.getBytes(), "UTF-8");
             DB data = new DB();
             data.connection();
             String query = "select * from etudiant inner join presence on etudiant.id_etudiant=presence.id_etudiant where satus_presence='present' and presence.date_presence='" + dateUTF8 + "'";
@@ -141,6 +142,7 @@ public class liste extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(liste.class.getName()).log(Level.SEVERE, null, ex);
         }
+        request.setAttribute("date", dateUTF8);
         request.setAttribute("liste_date", liste_date);
         request.setAttribute("liste_present", liste_present);
         request.setAttribute("liste_absent", liste_absent);

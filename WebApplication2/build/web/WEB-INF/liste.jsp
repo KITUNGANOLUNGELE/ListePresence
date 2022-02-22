@@ -51,8 +51,9 @@
         </div>
     </nav>
     <div style="width: 90%; margin: auto;">
-        <div class="alert-info" style="width: 40%; float: left; margin: 40px 0px 0px 40px; border-radius: 6px;">
-            <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
+        <h2 style="text-align: center; background-color: bisque">${date}<hr></h2>
+        <div class="alert-primary" style="width: 40%; float: left; margin: 0px 0px 0px 40px; border-radius: 6px; overflow: scroll;">
+            <table class="table table-bordered" style="width: 70%; margin: auto; text-align: center;">
                 <thead style="text-align: center;">
                     <tr class=" info">
                         <th style="text-align: center; font-family: monserrat; font-weight: bold; font-size: 90%"><h3>Liste des étudiants présents</h3></th>
@@ -70,8 +71,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="alert-info" style="width: 40%; float: left; margin: 40px 0px 0px 40px; border-radius: 6px;">
-            <table class="table" style="width: 70%; margin: auto; text-align: center;">
+        <div class="alert-primary" style="width: 40%; float: left; margin: 0px 0px 0px 40px; border-radius: 6px; overflow: scroll;">
+            <table class="table table-bordered" style="width: 70%; margin: auto; text-align: center;">
                 <thead style="text-align: center;">
                     <tr class=" info">
                         <th style="text-align: center; font-family: monserrat; font-weight: bold; font-size: 90%"><h3>Liste des étudiants absents</h3></th>
