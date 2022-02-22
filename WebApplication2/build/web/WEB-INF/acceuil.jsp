@@ -62,8 +62,8 @@
 
             <div style="margin: 10px auto 10px auto">
                 <div class="form-group" style="width: 50%; margin: auto">
-                    <input class="btn-sm btn-success" type="submit"  name="Enregistrer" id="Enregistrer" value="Enregistrer">
-                    <input class="btn-sm btn-primary" type="submit"  name="Modifier" id="Modifier" value="Modifier">
+                    <input class="btn-sm btn-success" type="submit"  name="Enregistrer" value="Enregistrer">
+                    <input class="btn-sm btn-primary" type="submit"  name="Modifier" value="Modifier">
                 </div>
             </div>
         </div>

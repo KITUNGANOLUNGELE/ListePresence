@@ -41,7 +41,6 @@
         </div>
     </nav>
     <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
-        <c:set var="inc" value="0" scope="page"/> 
         <thead style="text-align: center;">
             <tr class=" info">
                 <th>ID</th>

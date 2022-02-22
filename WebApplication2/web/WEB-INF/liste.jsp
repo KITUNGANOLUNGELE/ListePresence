@@ -4,12 +4,14 @@
     Author     : Henockl
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@page import="java.util.Date, java.text.DateFormat" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <title>Liste</title>
     </head>
@@ -36,16 +38,57 @@
                     <li><a href="liste">Liste de présence selon une date</a></li>
             </div>
 
-            <form>
+            <form method="POST" action="liste">
                 <div class="form-group" style="width: 50%; margin: auto">
                     <label for="pwd" style="color: white;">Séléctionnez une date : </label>
-                    <select type="text" class="form-control" name="date" id="date">
-                        <option value=""">option 1</option>
-                    </select>
-                    <div style="margin: 10px auto 10px auto">
-                        <div class="form-group" style="width: 50%; margin: auto">
-                            <input class="btn-sm btn-success" type="submit"  name="Rechercher" id="Rechercher" value="Rechercher">
-                        </div>
-                        </form><</nav>
-                        </body>
-                        </html>
+                    <select type="text" class="form-control" name="date" style="text-align: center; font-size: 120%; font-weight: bold;">
+                        <c:forEach items="${liste_date}" var="date">
+                            <option value="<c:out value="${date}"/>"><c:out value="${date}"/></option>
+                        </c:forEach>
+                    </select><input type="submit" class="btn btn-outline-primary" name="rechercher" value="Rechercher">
+                    </form>
+                </div>
+        </div>
+    </nav>
+    <div style="width: 90%; margin: auto;">
+        <div class="alert-info" style="width: 40%; float: left; margin: 40px 0px 0px 40px; border-radius: 6px;">
+            <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
+                <thead style="text-align: center;">
+                    <tr class=" info">
+                        <th style="text-align: center; font-family: monserrat; font-weight: bold; font-size: 90%"><h3>Liste des étudiants présents</h3></th>
+                    </tr>
+
+                </thead>
+                <tbody style="text-align: left; font-family: montserrat;font-weight: bold;">
+                    <c:forEach items="${liste_present}" var="present">
+                        <tr>
+                            <td >
+                                <P><c:out value="${present}"/></p>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert-info" style="width: 40%; float: left; margin: 40px 0px 0px 40px; border-radius: 6px;">
+            <table class="table" style="width: 70%; margin: auto; text-align: center;">
+                <thead style="text-align: center;">
+                    <tr class=" info">
+                        <th style="text-align: center; font-family: monserrat; font-weight: bold; font-size: 90%"><h3>Liste des étudiants absents</h3></th>
+                    </tr>
+
+                </thead>
+                <tbody style="text-align: left; font-family: montserrat;font-weight: bold;">
+                    <c:forEach items="${liste_absent}" var="absent">
+                        <tr>
+                            <td>
+                                <P><c:out value="${absent}"/></p>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

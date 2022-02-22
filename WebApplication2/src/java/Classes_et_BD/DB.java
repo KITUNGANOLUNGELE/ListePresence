@@ -21,7 +21,7 @@ public class DB {
     public void connection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp", "root", "");
+            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tpo", "root", "");
             if (con != null) {
                 System.out.print("Connected");
             } else {

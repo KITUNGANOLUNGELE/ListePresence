@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/src/java/appel.java</file>
             <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/src/java/Classes_et_BD/Etudiant.java</file>
-            <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/src/java/acceuil.java</file>
             <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/src/java/Classes_et_BD/DB.java</file>
             <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/src/java/Classes_et_BD/Presence.java</file>
             <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/web/WEB-INF/acceuil.jsp</file>
+            <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/web/WEB-INF/appel.jsp</file>
+            <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/src/java/liste.java</file>
+            <file>file:/C:/Users/Henockl/Documents/NetBeansProjects/ListePresence/WebApplication2/web/WEB-INF/liste.jsp</file>
         </group>
     </open-files>
 </project-private>

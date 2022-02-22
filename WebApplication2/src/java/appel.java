@@ -69,7 +69,6 @@ public class appel extends HttpServlet {
         base.connection();
         String query = "select * from etudiant where date_presence is NULL or date_presence <> '" + mydate + "'";
         try {
-            Statement stat = base.con.createStatement();
             PreparedStatement prep = base.con.prepareStatement(query);
             ResultSet r = prep.executeQuery(query);
             mes_etudiants.clear();
